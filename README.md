@@ -1,6 +1,6 @@
 # SunVox Web Visualizer (WIP)
 
-*image*
+![visualizer_demo_01_small](https://user-images.githubusercontent.com/99490829/227837360-e785a186-dbc2-4542-9671-8fe2dfea821a.png)
 
 - SPACE: stop / play
 - ENTER: rewind

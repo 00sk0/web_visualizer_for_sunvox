@@ -65,6 +65,19 @@ const init_sv = async svlib_promise => {
   return [svlib, version];
 }
 
+let state = {};
+const reset_state = () => state = {
+  volume: 100,
+  cnt_message: -1,
+  message: "",
+};
+reset_state();
+
+const message = mes => {
+  state.message = mes;
+  state.cnt_message = 45;
+};
+
 const init = async (cv,file) => {
   // setting up the library
   const [svlib,ver] = await init_sv(SunVoxLib());
@@ -169,13 +182,52 @@ const init = async (cv,file) => {
     if (e.defaultPrevented) return;
 
     console.log(e.code);
+
     switch(e.code) {
       case "Space":
-        svlib._sv_end_of_song(0) ? svlib._sv_play(0) : svlib._sv_stop(0);
+        if (svlib._sv_end_of_song(0)) {
+          svlib._sv_play(0);
+          message("Play");
+        } else {
+          svlib._sv_stop(0);
+          message("Stop");
+        }
+
         e.preventDefault();
         break;
+
       case "Enter":
-        svlib._sv_rewind(0, svlib._sv_get_current_line(0)+4);
+        if (e.shiftKey) {
+          if (svlib._sv_get_current_line(0) > 0) {
+            svlib._sv_rewind(0, svlib._sv_get_current_line(0)-4);
+            message("Rewind Backward");
+          }
+        } else if (svlib._sv_end_of_song(0)) {
+          svlib._sv_play_from_beginning(0);
+          message("Replay");
+        } else {
+          const len_song = svlib._sv_get_song_length_lines(0);
+          if (svlib._sv_get_current_line(0) < len_song) {
+            svlib._sv_rewind(0, svlib._sv_get_current_line(0)+4);
+            message("Rewind");
+          }
+        }
+        e.preventDefault();
+        break;
+
+      case "ArrowUp":
+        state.volume += 10;
+        if (state.volume > 200) state.volume = 200;
+        svlib._sv_volume(0, ~~(state.volume * 256 / 100));
+        message(`Volume ${state.volume}%`);
+        e.preventDefault();
+        break;
+
+      case "ArrowDown":
+        state.volume -= 10;
+        if (state.volume < 0) state.volume = 0;
+        svlib._sv_volume(0, ~~(state.volume * 256 / 100));
+        message(`Volume ${state.volume}%`);
         e.preventDefault();
         break;
     }
@@ -200,6 +252,9 @@ const loop_start = (
   name_song,
   idx_instance
 ) => {
+  // reset state
+  reset_state();
+
   // preparation
   const ctx = cv.getContext("2d", {willReadFrequently: true});
 
@@ -416,6 +471,16 @@ const loop_start = (
       ctx.textAlign = "right";
       ctx.textBaseline = "top";
       ctx.fillText(name_song, cv.width - 16, 16);
+
+      if (state.cnt_message > 0) {
+        ctx.font = `${~~(font_size)}px 'Share Tech Mono'`;
+        ctx.fillStyle = `rgba(255,255,255,${Math.min(1, state.cnt_message/10)})`;
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+        ctx.fillText(state.message, 16, 16);
+
+        state.cnt_message --;
+      }
     }
 
     // show progression

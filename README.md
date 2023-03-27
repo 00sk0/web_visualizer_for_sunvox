@@ -6,6 +6,8 @@ https://00sk0.github.io/web_visualizer_for_sunvox/
 
 - SPACE: stop / play
 - ENTER: rewind
+  - Shift+ENTER: rewind backward
+- UP / DOWN: volume up / down
 
 # Development
 

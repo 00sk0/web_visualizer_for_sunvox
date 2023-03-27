@@ -95,7 +95,6 @@ const init = async (cv,file) => {
     svlib._sv_load_from_memory(0, p, proj.byteLength);
     svlib._free(p);
   }
-  svlib._sv_play_from_beginning(0);
   const name_song = svlib.UTF8ToString(svlib._sv_get_song_name(0));
 
   // getting information of modules
@@ -183,6 +182,7 @@ const init = async (cv,file) => {
   });
 
   // start!
+  svlib._sv_play_from_beginning(0);
   console.assert(sda_node !== null);
   sda_node.connect(anlz);
 

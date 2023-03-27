@@ -17,6 +17,12 @@ https://00sk0.github.io/web_visualizer_for_sunvox/
 - `npm run dev`
 - Access http://localhost:5124/dist/index.html
 
+# (Advertisement)
+
+The demo song is from my first EP, "Think Inside the Toy Box".
+
+https://00sk0.bandcamp.com/album/think-inside-the-toy-box
+
 # License
 
 MIT

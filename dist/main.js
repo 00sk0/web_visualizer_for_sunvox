@@ -472,11 +472,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // resize
   const bg = document.getElementById("background");
   const resize = () => {
+    const height = document.documentElement.clientHeight;
     const width = document.documentElement.clientWidth;
-    cv.style.width = `${width}px`;
-    cv.style.height = "auto";
-    bg.style.width = `${width}px`;
-    bg.style.height = "auto";
+    if (width / height >= 1920 / 1080) {
+      cv.style.width = "auto";
+      cv.style.height = `${height}px`;
+      bg.style.width = "auto";
+      bg.style.height = `${height}px`;
+    } else {
+      cv.style.width = `${width}px`;
+      cv.style.height = "auto";
+      bg.style.width = `${width}px`;
+      bg.style.height = "auto";
+    }
   };
   resize();
   window.addEventListener("resize", resize);

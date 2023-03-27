@@ -455,6 +455,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const cv = document.getElementById("main");
   let svlib = null;
 
+  document.getElementById("demo").addEventListener("click", async e => {
+    e.preventDefault();
+
+    // finalize old instance
+    if (svlib !== null) {
+      window.svlib = svlib;
+      svlib._sv_close_slot(0);
+      svlib._sv_deinit();
+    }
+
+    // new instance
+    svlib = await init(cv, await (await fetch("sk0 - Spring Rider.sunvox")).blob());
+  });
+
+  // resize
   const bg = document.getElementById("background");
   const resize = () => {
     const width = document.documentElement.clientWidth;
@@ -466,6 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resize();
   window.addEventListener("resize", resize);
 
+  // drag & drop
   cv.addEventListener('dragover', function(e) {
     e.stopPropagation();
     e.preventDefault();

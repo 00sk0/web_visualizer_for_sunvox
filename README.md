@@ -10,9 +10,10 @@ https://00sk0.github.io/web_visualizer_for_sunvox/
 # Development
 
 - Place `sunvox.wasm` in the `dist` folder
-  - [Official page about SunVox library](https://warmplace.ru/soft/sunvox/sunvox_lib.php)
+  - [Official download of SunVox library](https://warmplace.ru/soft/sunvox/sunvox_lib.php)
 - `npm i`
 - `npm run dev`
+- Access http://localhost:5124/dist/index.html
 
 # License
 

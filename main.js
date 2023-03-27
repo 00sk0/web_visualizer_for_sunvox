@@ -522,9 +522,10 @@ const loop_start = (
 // handlers
 document.addEventListener("DOMContentLoaded", () => {
   const cv = document.getElementById("main");
+  const bg = document.getElementById("background");
   let svlib = null;
 
-  document.getElementById("demo").addEventListener("click", async e => {
+  document.getElementById("demo").addEventListener("click", async function(e) {
     e.preventDefault();
 
     // finalize old instance
@@ -536,10 +537,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // new instance
     svlib = await init(cv, await (await fetch("sk0 - Spring Rider.sunvox")).blob());
+
+    this.style.background = "none";
+    bg.remove();
   });
 
   // resize
-  const bg = document.getElementById("background");
   const resize = () => {
     const height = document.documentElement.clientHeight;
     const width = document.documentElement.clientWidth;

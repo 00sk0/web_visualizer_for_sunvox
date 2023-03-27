@@ -68,6 +68,7 @@ const init_sv = async svlib_promise => {
 let state = {};
 const reset_state = () => state = {
   volume: 100,
+  volume_init: 100,
   cnt_message: -1,
   message: "",
 };
@@ -222,7 +223,7 @@ const init = async (cv,file) => {
       case "ArrowUp":
         state.volume += 10;
         if (state.volume > 200) state.volume = 200;
-        svlib._sv_volume(0, ~~(state.volume * 256 / 100));
+        svlib._sv_volume(0, ~~(state.volume * state.volume_init / 100));
         message(`Volume ${state.volume}%`);
         e.preventDefault();
         break;
@@ -230,7 +231,7 @@ const init = async (cv,file) => {
       case "ArrowDown":
         state.volume -= 10;
         if (state.volume < 0) state.volume = 0;
-        svlib._sv_volume(0, ~~(state.volume * 256 / 100));
+        svlib._sv_volume(0, ~~(state.volume * state.volume_init / 100));
         message(`Volume ${state.volume}%`);
         e.preventDefault();
         break;
@@ -258,6 +259,7 @@ const loop_start = (
 ) => {
   // reset state
   reset_state();
+  state.volume_init = 255; // there seems to be no way to get project's volume...
 
   // preparation
   const ctx = cv.getContext("2d", {willReadFrequently: true});

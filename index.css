@@ -30,6 +30,8 @@ body {
   position: absolute;
   top: 0; left: 0;
   aspect-ratio: 1920/1080;
+  min-width: 400px;
+  min-height: calc(400px * 1080 / 1920);
 }
 
 a:link, a:visited {

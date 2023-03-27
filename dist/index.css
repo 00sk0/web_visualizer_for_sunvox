@@ -20,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-#background p {
+#background p, #background h1 {
   text-align: center;
   vertical-align: center;
   margin: 12px;

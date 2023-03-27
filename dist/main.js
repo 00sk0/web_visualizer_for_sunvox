@@ -341,8 +341,6 @@ const loop_start = (
     // cv
     ctx.clearRect(0, 0, cv.width, cv.height);
     ctx_rot.clearRect(-cv_rot.width, -cv_rot.height, cv_rot.width*3, cv_rot.height*3);
-    ctx.fillStyle = `#000`;
-    ctx.fillRect(0, 0, cv.width, cv.height)
 
     // amp -> db
     const db_min = Math.max(anlz.minDecibels, -80),
@@ -562,16 +560,16 @@ document.addEventListener("DOMContentLoaded", () => {
   cv.addEventListener('dragover', function(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (svlib === null) this.style.background = "rgba(0,255,0,0.4)";
+    this.style.background = "rgba(0,255,0,0.4)";
   });
 
   cv.addEventListener('dragleave', function(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (svlib === null) this.style.background = "none";
+    this.style.background = "none";
   });
 
-  cv.addEventListener("drop", async e => {
+  cv.addEventListener("drop", async function(e) {
     e.stopPropagation();
     e.preventDefault();
 
@@ -591,6 +589,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // new instance
     svlib = await init(cv, e.dataTransfer.files[0]);
+
+    this.style.background = "none";
+    bg.remove();
   });
 });
 

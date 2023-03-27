@@ -1,0 +1,47 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  overflow: hidden;
+}
+
+#background {
+  border: 10px dashed #fff;
+  width: 1920px; height: 1080px;
+  aspect-ratio: 1920/1080;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#background p, #background h1 {
+  text-align: center;
+  vertical-align: center;
+  margin: 12px;
+}
+
+#main {
+  position: absolute;
+  top: 0; left: 0;
+  aspect-ratio: 1920/1080;
+}
+
+a:link, a:visited {
+  color: hsl(330, 60%, 60%);
+}
+a:hover, a:active {
+  color: hsl(330, 60%, 80%);
+}
+
+div#link {
+  position: fixed;
+  bottom: 0; right: 0;
+  padding: 0.25rem 0.4rem;
+  background-color: rgba(0,0,0,0.8);
+}

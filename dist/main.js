@@ -175,19 +175,24 @@ const init = async (cv,file) => {
   // add event listener that receives input from keyboard
   idx_latest_instance ++;
   const idx_instance = idx_latest_instance;
+
   document.addEventListener("keydown", e => {
     if (idx_instance !== idx_latest_instance) return;
-
-    console.log(e, e.defaultPrevented, document.activeElement);
     if (e.defaultPrevented) return;
 
-    console.log(e.code);
+    const len_song = svlib._sv_get_song_length_lines(0);
 
     switch(e.code) {
       case "Space":
+        console.log(svlib._sv_get_current_line(0), len_song);
         if (svlib._sv_end_of_song(0)) {
-          svlib._sv_play(0);
-          message("Play");
+          if (svlib._sv_get_current_line(0) >= len_song - 1) {
+            svlib._sv_play_from_beginning(0);
+            message("Replay");
+          } else {
+            svlib._sv_play(0);
+            message("Play");
+          }
         } else {
           svlib._sv_stop(0);
           message("Stop");
@@ -206,7 +211,6 @@ const init = async (cv,file) => {
           svlib._sv_play_from_beginning(0);
           message("Replay");
         } else {
-          const len_song = svlib._sv_get_song_length_lines(0);
           if (svlib._sv_get_current_line(0) < len_song) {
             svlib._sv_rewind(0, svlib._sv_get_current_line(0)+4);
             message("Rewind");

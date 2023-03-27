@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "echo access http://localhost:5124/dist/index.html && reload -p 5124",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "reload": "^3.2.1"
   }
 }

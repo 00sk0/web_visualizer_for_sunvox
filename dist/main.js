@@ -185,7 +185,6 @@ const init = async (cv,file) => {
 
     switch(e.code) {
       case "Space":
-        console.log(svlib._sv_get_current_line(0), len_song);
         if (svlib._sv_end_of_song(0)) {
           if (svlib._sv_get_current_line(0) >= len_song - 1) {
             svlib._sv_play_from_beginning(0);
